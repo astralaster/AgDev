@@ -1,1 +1,1 @@
-podman run -w /code -v .:/code  agdev make
+podman run --rm -w /code -v .:/code  agdev make
