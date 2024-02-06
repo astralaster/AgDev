@@ -173,6 +173,10 @@ typedef struct {
 	uint24_t*	dir_ptr;   /* Pointer to the directory entry in the win[] (not used at exFAT) */
 } FIL;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Generic IO
 extern int   putch(int a);
 extern char  getch(void);
@@ -233,4 +237,8 @@ extern uint24_t mos_fread(uint8_t fh, char *buffer, uint24_t numbytes);
 extern uint24_t mos_fwrite(uint8_t fh, char *buffer, uint24_t numbytes);
 extern uint8_t  mos_flseek(uint8_t fh, uint32_t offset);
 extern FIL*     mos_getfil(uint8_t fh);
+#ifdef __cplusplus
+}
 #endif
+
+#endif // _MOS_H
