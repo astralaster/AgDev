@@ -21,16 +21,10 @@ jobs:
           cd /usr/share
           zip -r AgDev_release_${{  github.ref_name }}.zip CEdev -x '*.git*' -x '*.github*'
 
-      - name: 'Upload Artifact'
-        uses: actions/upload-artifact@v3
-        with:
-          name: release
-          path: AgDev_release_${{  github.ref_name }}.zip
-
       - name: Upload to GitHub Release
         uses: xresloader/upload-to-github-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: AgDev_release_${{  github.ref_name }}.zip
+          file: /usr/share/AgDev_release_${{  github.ref_name }}.zip
           tags: true
