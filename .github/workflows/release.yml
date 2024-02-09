@@ -13,22 +13,22 @@ jobs:
         run: |
           wget https://github.com/CE-Programming/toolchain/releases/download/v11.2/CEdev-Linux.tar.gz
           mkdir /usr/share/CEdev
-          tar -xvf CEdev-Linux.tar.gz -C /usr/share/CEdev
+          tar -xvf CEdev-Linux.tar.gz -C /usr/share/
           cp -r . /usr/share/CEdev/
 
       - name: Zip
-        run: zip -r release.zip /usr/share/CEdev
+        run: zip -r AgDev_release_$GITHUB_REF_NAME.zip /usr/share/CEdev
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
         with:
           name: release
-          path: release.zip
+          path: AgDev_release_$GITHUB_REF_NAME.zip
 
       - name: Upload to GitHub Release
         uses: xresloader/upload-to-github-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: "release.zip"
+          file: AgDev_release_$GITHUB_REF_NAME.zip
           tags: true
