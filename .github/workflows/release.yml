@@ -17,18 +17,18 @@ jobs:
           cp -r . /usr/share/CEdev/
 
       - name: Zip
-        run: zip -r AgDev_release_$GITHUB_REF_NAME.zip /usr/share/CEdev
+        run: zip -r AgDev_release_${{  github.ref_name }}.zip /usr/share/CEdev
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
         with:
           name: release
-          path: AgDev_release_$GITHUB_REF_NAME.zip
+          path: AgDev_release_${{  github.ref_name }}.zip
 
       - name: Upload to GitHub Release
         uses: xresloader/upload-to-github-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: AgDev_release_$GITHUB_REF_NAME.zip
+          file: AgDev_release_${{  github.ref_name }}.zip
           tags: true
