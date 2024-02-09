@@ -1,0 +1,34 @@
+name: release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  release_linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Add CEdev-Linux
+        run: |
+          wget https://github.com/CE-Programming/toolchain/releases/download/v11.2/CEdev-Linux.tar.gz
+          mkdir /usr/share/CEdev
+          tar -xvf CEdev-Linux.tar.gz -C /usr/share/CEdev
+          cp -r . /usr/share/CEdev/
+
+      - name: Zip
+        run: zip -r release.zip /usr/share/CEdev
+
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: release
+          path: release.zip
+
+      - name: Upload to GitHub Release
+        uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: "release.zip"
+          tags: true
